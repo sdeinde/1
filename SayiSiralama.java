@@ -1,0 +1,33 @@
+import java.util.Scanner;
+
+public class SayiSiralama {
+    public static void main(String[] args) {
+        Scanner klavye = new Scanner(System.in);
+System.out.println("ilk sayıyı girin:");
+        int a = klavye.nextInt();
+ System.out.println("ikinci sayıyı girin:");
+        int b = klavye.nextInt();
+        System.out.println("üçüncü sayıyı girin:");
+        int c = klavye.nextInt();
+ String siralama="";
+        if (a <= b && a <= c) {
+            if (b <= c) {
+                siralama = a + " < " + b + " < " + c; }
+            else {
+                siralama = a + " < " + c + " < " + b; }
+            }
+        else if (b <= a && b <= c) {
+            if (a <= c) {
+                siralama = b + " < " + a + " < " + c; }
+            else {
+                siralama = b + " < " + c + " < " + a; }
+            }
+        else { 
+            if (a <= b) {
+                siralama = c + " < " + a + " < " + b; }
+            else {
+                siralama = c + " < " + b + " < " + a; }
+            }
+        System.out.println("Sıralama (Küçükten Büyüğe):"+siralama);
+    }
+}
