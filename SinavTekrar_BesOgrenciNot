@@ -1,0 +1,35 @@
+package proje3_SinavTekrar;
+
+import java.util.Scanner;
+
+public class BesOgrenciNotHesaplama {
+
+	public static void main(String[] args) {
+		// Tekrar sayısı bilindiği için "for" kullanıcam.
+	Scanner klavye=new Scanner(System.in);
+	int vn,fn;
+	int i;
+	for(i=1;i<=5;i++) {
+		System.out.println("Vize Notu Girin: ");
+		vn=klavye.nextInt();
+		System.out.println("Final Notu Girin: ");
+		fn=klavye.nextInt();
+		double bn=(vn*0.4+fn*0.6);
+		//bn değişkenine değer burda atadım çünkü vn ve fn değişkenine değer atamadan atayamazdım.
+		System.out.println(i+ ". Öğrencinin Başarı notu: "+bn);
+	}
+	/*Eğer for'dan sonra ";" koyarsak:
+	i 1 olur, koşul doğru, döngü gövdesi (boşluk) çalışır, i 2 olur.
+	i 2 olur, koşul doğru, döngü gövdesi (boşluk) çalışır, i 3 olur.
+	i 3 olur, koşul doğru, döngü gövdesi (boşluk) çalışır, i 4 olur.
+	i 4 olur, koşul doğru, döngü gövdesi (boşluk) çalışır, i 5 olur.
+	i 5 olur, koşul doğru, döngü gövdesi (boşluk) çalışır, i 6 olur.
+	i 6 olur, koşul (6 <= 5) yanlış olur ve for döngüsü biter.
+	Döngü Bittiğinde: i değişkeninin hafızadaki son değeri 6'dır.
+	Kod Bloğu Çalışır: Program bir sonraki satıra geçer.Sizin süslü parantez { } ile açtığınız blok, 
+	artık for döngüsünün bir parçası değildir. Sadece normal bir kod bloğudur ve sadece bir kez çalışır.
+	Sonuç: Bu blok çalıştığında sizden Vize ve Final notu ister, hesabı yapar ve System.out.println
+	(i+ ". Öğrencinin..."); satırına gelir. i'nin değeri 6 olduğu için ekrana "6. Öğrencinin Başarı notu: ..." yazar.
+	}*/
+	}
+}
