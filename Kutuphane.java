@@ -1,120 +1,130 @@
-package hafta11;
-
-import java.util.Iterator;
+import java.security.DrbgParameters.NextBytes;
 import java.util.Scanner;
 
 public class Kutuphane {
 
 	public static void main(String[] args) {
-		Scanner scan = new Scanner(System.in);
-		System.out.println("Kaç kitap gireceksiniz?: ");
-		byte kitapsayi = scan.nextByte();
-		String[] kitapAd = new String[kitapsayi];
-		String[] yazarAd = new String[kitapsayi];
-		String[] yayınAd = new String[kitapsayi];
-		short[] sayfasayisi = new short[kitapsayi];
-		short[] fiyat = new short[kitapsayi];
+		Scanner giris = new Scanner(System.in);
+		System.out.println("Kaç kitap gireceksiniz");
+		byte ks = giris.nextByte();
+		String kitapAd[] = new String[ks];
+		String yazarAd[] = new String[ks];
+		String yevAd[] = new String[ks];
+		short sayfaSayisi[] = new short[ks];
+		short fiyat[] = new short[ks];
 		for (int i = 0; i < fiyat.length; i++) {
-			System.out.println(i + 1 + ". kitabın adını giriniz: ");
-			kitapAd[i] = scan.next();
-			System.out.println(i + 1 + ". kitabın yazarını giriniz: ");
-			yazarAd[i] = scan.next();
-			System.out.println(i + 1 + ". kitabın yayınevini giriniz: ");
-			yayınAd[i] = scan.next();
-			System.out.println(i + 1 + ". kitabın sayfa sayısını giriniz: ");
-			sayfasayisi[i] = scan.nextShort();
-			System.out.println(i + 1 + ". kitabın fiyatını giriniz: ");
-			fiyat[i] = scan.nextShort();
-			System.out.println("--------------------------------");
+			System.out.print((i + 1) + ".kitap adı girin : ");
+			kitapAd[i] = giris.nextLine();
+
+			System.out.print((i + 1) + ".Yazar adı girin : ");
+			yazarAd[i] = giris.next();
+			System.out.println((i + 1) + ".yayın evi adı girin : ");
+			yevAd[i] = giris.next();
+			System.out.println((i + 1) + ".Sayfa sayısı : ");
+			sayfaSayisi[i] = giris.nextShort();
+			System.out.println((i + 1) + ".fiyatı : ");
+			fiyat[i] = giris.nextShort();
 		}
 		while (true) {
-			byte menu = MenuGoruntule(scan);
+			byte menu = MenuGoruntule(giris);
 			switch (menu) {
 			case 1:
-				Listele(kitapAd, yazarAd, yayınAd, sayfasayisi, fiyat);
+				Listele(kitapAd, yazarAd, yevAd, sayfaSayisi, fiyat);
 				break;
-			case 7:
-				System.out.println("Program sonlanmıştır.");
-				System.exit(0);
-			default:
-				System.out.println("Yanlış karakter tuşladınız!!");
+			case 2:
+				System.out.println("Aranacak kitap adı gir:");
+				String arananAd = giris.next();
+				KitapArama(arananAd, kitapAd, yazarAd, yevAd, sayfaSayisi, fiyat);
+				break;
+			case 3:
+				System.out.println("Sayfa sayısı ortalaması : " + Ortalama(sayfaSayisi));
+				System.out.println("Fiyat ortalaması : " + Ortalama(fiyat));
 				break;
 			case 4:
-				System.out.println("En fazla sayfa sayısı:" + Enbuyuk(sayfasayisi));
-				System.out.println("En fazla fiyat:" + Enbuyuk(fiyat));
+				System.out.println("Sayfa sayısı En büyüğü : " + EnBuyuk(sayfaSayisi));
+				System.out.println("Fiyat En Büyüğü : " + EnBuyuk(fiyat));
 				break;
 			case 5:
-				System.out.println("En az sayfa sayısı:" + Enkucuk(sayfasayisi));
-				System.out.println("En az fiyat:" + Enkucuk(fiyat));
-			case 6:
-				EnBuyukFiyat(kitapAd, yazarAd, yayınAd, sayfasayisi, fiyat);
+				System.out.println("Sayfa sayısı En küçüğü : " + EnKucuk(sayfaSayisi));
+				System.out.println("Fiyat En Küçüğü : " + EnKucuk(fiyat));
 				break;
-			case 2:İsimarama();
+			case 6:EnBuyukFiyat(kitapAd, yazarAd, yevAd, sayfaSayisi, fiyat);break;
+			case 7:
+				System.out.println("Program bitti");
+				System.exit(0);
+				break;
+			default:
+				System.out.println("Yanlış menü değeri");
+				break;
 			}
-
 		}
-
 	}
 
-	private static void İsimarama() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private static void EnBuyukFiyat(String[] kitapAd, String[] yazarAd, String[] yayınAd, short[] sayfasayisi,
+	private static void EnBuyukFiyat(String[] kitapAd, String[] yazarAd, String[] yevAd, short[] sayfaSayisi,
 			short[] fiyat) {
-		short enBuyukFiyat = Enbuyuk(fiyat);
+		short enBuyukFiyat=EnBuyuk(fiyat);
 		for (int i = 0; i < fiyat.length; i++) {
-			if (fiyat[i] == enBuyukFiyat) {
-				System.out.println("Kitap adı: " + kitapAd[i]);
-				System.out.println("Yazar adı: " + yazarAd[i]);
-				System.out.println("Yayınevi adı: " + yayınAd[i]);
-				System.out.println("Kitap sayfa sayısı: " + sayfasayisi[i]);
-				System.out.println("Kitap fiyatı: " + fiyat[i]);
-
-			}
-
+			if(fiyat[i]==enBuyukFiyat) {
+				System.out.println("Kitap adı : " + kitapAd[i]);
+				System.out.println("yazar adı : " + yazarAd[i]);
+				System.out.println("Yayın Evi adı : " + yevAd[i]);
+				System.out.println("Sayfa sayısı : " + sayfaSayisi[i]);
+				System.out.println("Kitap fiyatı : " + fiyat[i]);
+			} 
 		}
 	}
 
-	private static short Enkucuk(short[] sayilar) {
-		short enk = sayilar[0];
+	private static short EnKucuk(short[] sayilar) {
+		short enk=sayilar[0];
 		for (int i = 1; i < sayilar.length; i++) {
-			if (sayilar[i] < enk) {
-				enk = sayilar[i];
-			}
+			if(sayilar[i]<enk) enk=sayilar[i];
 		}
 		return enk;
 	}
 
-	private static short Enbuyuk(short[] sayilar) {
-		short enb = sayilar[0];
+	private static short EnBuyuk(short[] sayilar) {
+		short enb=sayilar[0];
 		for (int i = 1; i < sayilar.length; i++) {
-			if (sayilar[i] > enb) {
-				enb = sayilar[i];
-			}
+			if(sayilar[i]>enb) enb=sayilar[i];
 		}
 		return enb;
 	}
 
-	private static void Listele(String[] kitapAd, String[] yazarAd, String[] yayınAd, short[] sayfasayisi,
-			short[] fiyat) {
-		for (int i = 0; i < fiyat.length; i++) {
-			System.out.println("Kitap adı: " + kitapAd[i]);
-			System.out.println("Yazar adı: " + yazarAd[i]);
-			System.out.println("Yayınevi adı: " + yayınAd[i]);
-			System.out.println("Kitap sayfa sayısı: " + sayfasayisi[i]);
-			System.out.println("Kitap fiyatı: " + fiyat[i]);
-			System.out.println("--------------------------------");
+	private static short Ortalama(short[] sayilar) {
+		int toplam=0;
+		for (int i = 0; i < sayilar.length; i++) {
+			toplam+=sayilar[i];
+		}
+		return (short) (toplam/sayilar.length);
+	}
 
+	private static void KitapArama(String arananAd, String[] kitapAd, String[] yazarAd, String[] yevAd,
+			short[] sayfaSayisi, short[] fiyat) {
+		for (int i = 0; i < fiyat.length; i++) {
+			if (arananAd.equalsIgnoreCase(kitapAd[i])) {
+				System.out.println("Kitap adı : " + kitapAd[i]);
+				System.out.println("yazar adı : " + yazarAd[i]);
+				System.out.println("Yayın Evi adı : " + yevAd[i]);
+				System.out.println("Sayfa sayısı : " + sayfaSayisi[i]);
+				System.out.println("Kitap fiyatı : " + fiyat[i]);
+			}
 		}
 	}
 
-	private static byte MenuGoruntule(Scanner scan) {
-		System.out.println("Seçim yapınız: ");
-		System.out.println("\n1-Listeleme \n2-İsim arama \n3-Ortalama \n4-En Büyük \n5-En küçük \n6-Çıkış");
-		byte menu = scan.nextByte();
-		return menu;
+	private static void Listele(String[] kitapAd, String[] yazarAd, String[] yevAd, short[] sayfaSayisi,
+			short[] fiyat) {
+		for (int i = 0; i < fiyat.length; i++) {
+			System.out.println("Kitap adı : " + kitapAd[i]);
+			System.out.println("yazar adı : " + yazarAd[i]);
+			System.out.println("Yayın Evi adı : " + yevAd[i]);
+			System.out.println("Sayfa sayısı : " + sayfaSayisi[i]);
+			System.out.println("Kitap fiyatı : " + fiyat[i]);
+		}
 	}
 
+	private static byte MenuGoruntule(Scanner giris) {
+		System.out.println("1-Listeleme\n2-İsim Arama\n3-Ortalama\n4-en Büyük\5-En Küçük\n6-Çıkış");
+		byte menu = giris.nextByte();
+		return menu;
+	}
 }
