@@ -40,3 +40,13 @@ public class Main {
         return x+y;
     }
 }
+---------------------------------------------------------------------
+    public class Main {
+    public static void main(String[] args) {
+        merhaba("Emre");
+    }
+    // Metot Tanımlaması:
+    public static void merhaba(String isim){
+        System.out.println("Merhaba "+isim+"! Hoş geldin.");
+    }
+}
