@@ -11,3 +11,13 @@ public class Main {
         return x+y;
     }
 }
+----------------------------------------------------------
+    public class Main {
+    public static void main(String[] args) {
+        adım(); // Metodumuzu çağırdık.
+    }
+    // Metot Tanımlaması:
+    public static void adım(){
+        System.out.println("Benim adım: Sude");
+    }
+}
