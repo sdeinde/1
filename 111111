@@ -1,0 +1,28 @@
+package hafta10;
+
+public class Ogrenci {
+    String ad;
+    String soyad;
+    int dogumTarihi;
+    byte vn, fn;
+
+    @Override
+    public String toString() {
+        return "ad=" + ad + ", soyad=" + soyad + ", dogumTarihi=" + dogumTarihi;
+    }
+
+    public int yasHesap() {
+        return 2026 - dogumTarihi;
+    }
+
+    public void bilgileriGoster() {
+        System.out.println("Ad : " + ad);
+        System.out.println("Soyad : " + soyad);
+        System.out.println("Yaş : " + yasHesap());
+        System.out.println("Başarı Notu : " + basariNotu());
+    }
+
+    public byte basariNotu() {
+        return (byte) (vn * 0.4 + fn * 0.6);
+    }
+}
